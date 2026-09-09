@@ -1,0 +1,2053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fundamental Plus 4 – Unit 11: Class 7 (Substitute Ready)</title>
+    <style>
+        /* ── CSS Reset & Variables ── */
+        :root {
+            --primary: #0D9488;
+            --primary-light: #2DD4BF;
+            --secondary: #059669;
+            --accent: #F59E0B;
+            --bg: #0F172A;
+            --surface: #1E293B;
+            --surface-light: #334155;
+            --text: #F1F5F9;
+            --muted: #94A3B8;
+            --border: #475569;
+            --success: #34D399;
+            --error: #F87171;
+            --radius: 16px;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --font: 'Segoe UI', system-ui, sans-serif;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            padding: 16px;
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: radial-gradient(ellipse at 20% 50%, #0D948822 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, #05966922 0%, transparent 50%);
+        }
+        .app {
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+        /* ── HEADER ── */
+        .header {
+            background: linear-gradient(135deg, #0D9488, #0F766E);
+            padding: 20px 28px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--primary-light);
+            position: relative;
+            overflow: hidden;
+        }
+        .header-top {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .header-logo {
+            height: 50px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            flex-shrink: 0;
+        }
+        .header-text {
+            flex: 1;
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .header .sub {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            font-weight: 400;
+        }
+        .header .meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 10px 16px;
+            border-radius: 10px;
+        }
+        .header .meta span {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 12px;
+            border-radius: 20px;
+        }
+        .objectives {
+            margin-top: 14px;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 14px 18px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+        }
+        .objectives ul {
+            margin-left: 20px;
+            list-style: disc;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* ── XP BAR ── */
+        .xp-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 8px 18px 8px 22px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+        .xp-label {
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+        .xp-track {
+            flex: 1;
+            height: 8px;
+            background: var(--border);
+            border-radius: 99px;
+            overflow: hidden;
+        }
+        .xp-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), var(--success));
+            border-radius: 99px;
+            transition: width 0.6s ease;
+        }
+        .xp-score {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--text);
+            min-width: 50px;
+            text-align: right;
+        }
+
+        /* ── TABS ── */
+        .tab-nav {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            color: var(--muted);
+        }
+        .tab-btn:hover {
+            border-color: var(--primary-light);
+            color: var(--text);
+        }
+        .tab-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 0 20px #0D948844;
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--surface);
+            padding: 24px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            animation: fade 0.3s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .bridge {
+            background: rgba(13, 148, 136, 0.12);
+            border-left: 4px solid var(--primary-light);
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-style: italic;
+            color: var(--muted);
+        }
+        .bridge strong {
+            color: var(--text);
+        }
+
+        .card {
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+        }
+        .card h3 {
+            color: var(--primary-light);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        .card h4 {
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        /* ── BUTTONS ── */
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        .btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 20px #0D948866;
+        }
+        .btn.secondary {
+            background: var(--secondary);
+        }
+        .btn.secondary:hover {
+            box-shadow: 0 0 20px #05966966;
+        }
+        .btn.accent {
+            background: var(--accent);
+            color: #0F172A;
+        }
+        .btn.accent:hover {
+            box-shadow: 0 0 20px #F59E0B66;
+        }
+        .btn.small {
+            padding: 6px 16px;
+            font-size: 0.8rem;
+        }
+        .btn.outline {
+            background: transparent;
+            border: 2px solid var(--primary-light);
+            color: var(--primary-light);
+        }
+        .btn.outline:hover {
+            background: var(--primary-light);
+            color: white;
+        }
+        .btn.error {
+            background: var(--error);
+        }
+
+        /* ── INPUTS ── */
+        .select-input {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 4px 8px;
+            border-radius: 6px;
+            margin: 2px 4px;
+        }
+        .sb-input {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 6px 10px;
+            border-radius: 6px;
+            width: 100%;
+            font-family: inherit;
+        }
+        .sb-input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+        }
+        .blank-input {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 4px 10px;
+            color: var(--text);
+            font-family: inherit;
+            width: 140px;
+            transition: border-color 0.2s;
+        }
+        .blank-input:focus {
+            border-color: var(--primary-light);
+            outline: none;
+        }
+        .blank-input.correct {
+            border-color: var(--success);
+            background: #05966922;
+        }
+        .blank-input.wrong {
+            border-color: var(--error);
+            background: #F8717122;
+        }
+
+        /* ── VOCAB ITEMS ── */
+        .vocab-item {
+            display: inline-block;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 50px;
+            margin: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+            user-select: none;
+            font-size: 0.85rem;
+            color: var(--text);
+            text-align: center;
+        }
+        .vocab-item:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        .vocab-item.matched {
+            border-color: var(--success);
+            background: #05966922;
+            cursor: default;
+        }
+        .vocab-item.wrong {
+            border-color: var(--error);
+            background: #F8717122;
+            animation: shake 0.3s;
+        }
+        .vocab-item.selected {
+            border-color: var(--accent);
+            background: #F59E0B22;
+        }
+        .vocab-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin: 10px 0;
+            min-height: 40px;
+        }
+
+        /* ── GLADIATOR BATTLE ── */
+        .gladiator-arena {
+            text-align: center;
+            padding: 16px;
+            background: var(--surface);
+            border-radius: 12px;
+            border: 2px solid var(--accent);
+        }
+        .gladiator-stats {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .gladiator-stats span {
+            color: var(--accent);
+        }
+        .gladiator-word {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 12px 0;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--surface-light);
+            border-radius: 10px;
+            padding: 12px;
+            border: 2px solid var(--border);
+        }
+        .gladiator-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .gladiator-options button {
+            padding: 12px;
+            border-radius: 10px;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            color: var(--text);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        .gladiator-options button:hover:not(:disabled) {
+            border-color: var(--primary-light);
+            transform: scale(1.02);
+        }
+        .gladiator-options button:disabled {
+            opacity: 0.4;
+            cursor: default;
+        }
+        .gladiator-options button.correct {
+            border-color: var(--success);
+            background: #05966922;
+        }
+        .gladiator-options button.wrong {
+            border-color: var(--error);
+            background: #F8717122;
+            animation: shake 0.3s;
+        }
+        .gladiator-progress {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .gladiator-progress .dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all 0.3s;
+        }
+        .gladiator-progress .dot.win {
+            background: var(--success);
+        }
+        .gladiator-progress .dot.lose {
+            background: var(--error);
+        }
+        .gladiator-progress .dot.current {
+            background: var(--accent);
+            transform: scale(1.2);
+        }
+
+        /* ── FLASHCARD GUESSING GAME ── */
+        .flashcard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin: 12px 0;
+        }
+        .flashcard {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .flashcard:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-3px);
+        }
+        .flashcard .emoji {
+            font-size: 2.5rem;
+        }
+        .flashcard .hint {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+        .flashcard .passive-desc {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 4px;
+            display: none;
+        }
+        .flashcard.revealed .passive-desc {
+            display: block;
+        }
+        .flashcard.revealed {
+            border-color: var(--success);
+            background: #05966922;
+        }
+
+        /* ── DEMO FLASHCARD ── */
+        .flashcard-demo {
+            border: 3px solid var(--accent);
+            background: var(--surface-light);
+            max-width: 200px;
+            margin: 0 auto 12px;
+        }
+        .flashcard-demo .hint {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        .flashcard-demo.revealed {
+            border-color: var(--success);
+            background: #05966922;
+        }
+        .flashcard-demo.revealed .hint {
+            display: none;
+        }
+        .flashcard-demo.revealed .passive-desc {
+            display: block;
+        }
+
+        .object-list-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 8px;
+            margin: 12px 0;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 8px;
+            background: var(--surface);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        .object-list-grid .obj-item {
+            background: var(--surface-light);
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+            cursor: default;
+        }
+
+        /* ── PROCESS STEPS ── */
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 12px 0;
+        }
+        .process-step {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .process-step .num {
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .process-step .text {
+            flex: 1;
+        }
+
+        /* ── DIALOGUE ── */
+        .dialogue-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin: 10px 0;
+        }
+        .dialogue-box .speaker {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        .dialogue-box .line {
+            margin-bottom: 4px;
+        }
+
+        /* ── ERROR HUNT ── */
+        .error-hunt-item {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .error-hunt-item:last-child {
+            border-bottom: none;
+        }
+
+        /* ── CC BOX ── */
+        .cc-box {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid #F59E0B44;
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin: 12px 0;
+        }
+        .cc-phrase {
+            display: inline-block;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin: 3px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        /* ── EXIT TICKET ── */
+        .exit-ticket {
+            background: linear-gradient(135deg, var(--primary), #0F766E);
+            padding: 24px;
+            border-radius: var(--radius);
+            text-align: center;
+        }
+        .exit-ticket textarea {
+            width: 100%;
+            border-radius: 10px;
+            border: none;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text);
+            font-family: inherit;
+            margin: 12px 0;
+            resize: vertical;
+        }
+        .exit-ticket textarea::placeholder {
+            color: var(--muted);
+        }
+        .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #0F172A;
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-top: 12px;
+        }
+
+        /* ── TEACHER ANSWER SHEET ── */
+        .teacher-answers {
+            background: var(--surface);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+        .teacher-answers.show {
+            display: block;
+        }
+        .teacher-answers h3 {
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+        .teacher-answers .answer-block {
+            background: var(--surface-light);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--success);
+        }
+        .teacher-answers .answer-block strong {
+            color: var(--success);
+        }
+        .teacher-toggle {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            20% {
+                transform: translateX(-6px);
+            }
+            60% {
+                transform: translateX(6px);
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            .header-logo {
+                height: 35px;
+            }
+            .tab-btn {
+                font-size: 0.7rem;
+                padding: 8px 14px;
+            }
+            .tab-content {
+                padding: 16px;
+            }
+            .blank-input {
+                width: 100px;
+            }
+            .gladiator-options {
+                grid-template-columns: 1fr;
+            }
+            .flashcard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .object-list-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .vocab-item {
+                font-size: 0.75rem;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app">
+
+        <!-- ════════════════════════════════════════════════════════ -->
+        <!-- HEADER                                                  -->
+        <!-- ════════════════════════════════════════════════════════ -->
+        <header class="header">
+            <div class="header-top">
+                <img class="header-logo" src="https://www.colomboamericano.edu.co/wp-content/uploads/2024/06/Logo-Colombo-Horizontal.png" alt="Colombo Americano Cali" />
+                <div class="header-text">
+                    <h1>♻️ Fundamental Plus 4 – Unit 11</h1>
+                    <div class="sub">Use and Reuse · Class 7 – Passive Voice Mastery</div>
+                </div>
+            </div>
+            <div class="meta">
+                <span>📚 Class 7 of 7</span>
+                <span>🎯 B1 Level</span>
+                <span>⏱️ 90 minutes</span>
+                <span>👥 Virtual · Synchronous</span>
+                <span>🤖 Substitute Ready!</span>
+            </div>
+            <div class="objectives">
+                <strong>🎯 Today's Missions:</strong>
+                <ul>
+                    <li>Play the <strong>Eco-Warrior Challenge</strong> (20 questions!)</li>
+                    <li>Battle in the <strong>Word Gladiator</strong> (20+ vocabulary words)</li>
+                    <li>Master the <strong>Passive Voice</strong> with 5 practice types</li>
+                    <li>Apply the passive in <strong>Guess the Object</strong> with flashcards &amp; group work</li>
+                    <li>Describe a <strong>process</strong> step by step and present it</li>
+                </ul>
+            </div>
+        </header>
+
+        <!-- ════════════════════════════════════════════════════════ -->
+        <!-- XP BAR                                                  -->
+        <!-- ════════════════════════════════════════════════════════ -->
+        <div class="xp-bar">
+            <span class="xp-label">⚡ XP</span>
+            <div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+            <span class="xp-score" id="xp-score">0</span>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════ -->
+        <!-- TAB NAVIGATION                                          -->
+        <!-- ════════════════════════════════════════════════════════ -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" onclick="openTab('tab-warmup')">⚔️ 1. Eco-Warrior</button>
+            <button class="tab-btn" onclick="openTab('tab-vocab')">🗡️ 2. Word Gladiator</button>
+            <button class="tab-btn" onclick="openTab('tab-grammar')">⚡ 3. Grammar Arena</button>
+            <button class="tab-btn" onclick="openTab('tab-applied')">🎯 4. Applied Grammar</button>
+            <button class="tab-btn" onclick="openTab('tab-speaking')">🗣️ 5. Process &amp; Present</button>
+            <button class="tab-btn" onclick="openTab('tab-wrapup')">🏆 6. Mission Complete</button>
+            <button class="tab-btn" onclick="toggleTeacherAnswers()" style="background:var(--accent); color:#0F172A;">🎓 Teacher Answers</button>
+        </nav>
+
+        <main>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- TAB 1: ECO-WARRIOR CHALLENGE (20 questions)             -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <section id="tab-warmup" class="tab-content active">
+                <h2 class="section-title">⚔️ Warm-up: Eco-Warrior Challenge</h2>
+                <div class="bridge">
+                    Welcome to Class 7! 🌍<br>
+                    Test your knowledge about <strong>materials, recycling, and the environment</strong> with this 20-question challenge!
+                    Some questions use the <strong>passive voice</strong> – you studied it yesterday, so you've got this! 💪
+                </div>
+
+                <div class="card">
+                    <div id="eco-game">
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+                            <span style="font-weight:700; color:var(--accent);">🏹 Round <span id="eco-round">1</span> / 20</span>
+                            <span style="font-weight:700; color:var(--accent);">🏆 XP: <span id="eco-xp">0</span></span>
+                        </div>
+                        <div style="font-size:1.2rem; font-weight:700; min-height:60px; padding:12px; background:var(--surface); border-radius:10px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; text-align:center;" id="eco-question">
+                            Click "Start Challenge" to begin!
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:8px; max-width:500px; margin:12px auto;" id="eco-options"></div>
+                        <div id="eco-fb" style="font-weight:700; margin-top:8px; text-align:center;"></div>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:12px;">
+                            <button class="btn accent" onclick="startEcoGame()" id="eco-start-btn">🚀 Start Challenge</button>
+                            <button class="btn small outline" onclick="resetEcoGame()">🔄 Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bridge">
+                    🌱 Great job, Eco-Warrior! Now let's sharpen your vocabulary with the <strong>Word Gladiator</strong>! 🗡️
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- TAB 2: WORD GLADIATOR (20+ words)                      -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <section id="tab-vocab" class="tab-content">
+                <h2 class="section-title">🗡️ Word Gladiator – Vocabulary Battle</h2>
+                <div class="bridge">
+                    Enter the arena! 🏟️<br>
+                    Match each word to its correct definition. Defeat all 20+ opponents to become the <strong>Vocabulary Champion</strong>!
+                    The definitions are shuffled every round, so stay sharp! 🧠
+                </div>
+
+                <div class="card gladiator-arena">
+                    <div class="gladiator-stats">
+                        <span>⚔️ Score: <span id="gladiator-score">0</span> / <span id="gladiator-total">0</span></span>
+                        <span>🔥 Streak: <span id="gladiator-streak">0</span></span>
+                        <span>🏆 Level: <span id="gladiator-level">1</span></span>
+                    </div>
+                    <div class="gladiator-word" id="gladiator-word">Click "Enter the Arena" to begin!</div>
+                    <div class="gladiator-options" id="gladiator-options"></div>
+                    <div id="gladiator-fb" style="font-weight:700; margin-top:8px; min-height:24px;"></div>
+                    <div class="gladiator-progress" id="gladiator-progress"></div>
+                    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+                        <button class="btn accent" onclick="startGladiator()" id="gladiator-start-btn">🗡️ Enter the Arena</button>
+                        <button class="btn small outline" onclick="resetGladiator()">🔄 Reset</button>
+                    </div>
+                </div>
+
+                <div class="bridge">
+                    🏆 You're a Vocabulary Champion! Now let's dive deeper into the <strong>Passive Voice</strong> – the grammar of processes and actions! ⚡
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- TAB 3: GRAMMAR ARENA (5 Practice Types)                -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <section id="tab-grammar" class="tab-content">
+                <h2 class="section-title">⚡ Grammar Arena – Passive Voice</h2>
+
+                <!-- GRAMMAR EXPLANATION -->
+                <div class="bridge">
+                    <strong>What is the Passive Voice?</strong><br>
+                    In the passive voice, we focus on <strong>what happens</strong> to something, not <strong>who does</strong> it.
+                    <br><br>
+                    <strong>Structure:</strong> <span style="color:var(--accent);">Subject</span> + <span style="color:#60A5FA;">am/is/are</span> + <span style="color:#34D399;">past participle</span>
+                    <br><br>
+                    <em>Example: A T-shirt <span style="color:#60A5FA;">is</span> <span style="color:#34D399;">made</span> of cotton.</em>
+                    <br><br>
+                    <strong>We use it when:</strong>
+                    <ul style="margin-left:20px; margin-top:4px;">
+                        <li>The <strong>action</strong> is more important than the person doing it.</li>
+                        <li>We <strong>don't know</strong> who did it.</li>
+                        <li>We are describing a <strong>process</strong>.</li>
+                    </ul>
+                </div>
+
+                <!-- PRACTICE 1: IDENTIFY PASSIVE (12) -->
+                <div class="card">
+                    <h3>🎯 Practice 1: Active or Passive? (12 questions)</h3>
+                    <p style="color:var(--muted);">Is the sentence active or passive?</p>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:10px; line-height:2.2; font-size:0.9rem;">
+                        <div>1. The T-shirt is made in China. <select class="select-input" id="p1"><option value="">--</option><option value="passive">Passive</option><option value="active">Active</option></select></div>
+                        <div>2. Workers sew the fabric. <select class="select-input" id="p2"><option value="">--</option><option value="active">Active</option><option value="passive">Passive</option></select></div>
+                        <div>3. Cotton is grown on farms. <select class="select-input" id="p3"><option value="">--</option><option value="passive">Passive</option><option value="active">Active</option></select></div>
+                        <div>4. The store sells T-shirts. <select class="select-input" id="p4"><option value="">--</option><option value="active">Active</option><option value="passive">Passive</option></select></div>
+                        <div>5. The fabric is dyed blue. <select class="select-input" id="p5"><option value="">--</option><option value="passive">Passive</option><option value="active">Active</option></select></div>
+                        <div>6. People wear T-shirts everywhere. <select class="select-input" id="p6"><option value="">--</option><option value="active">Active</option><option value="passive">Passive</option></select></div>
+                        <div>7. The T-shirts are transported by truck. <select class="select-input" id="p7"><option value="">--</option><option value="passive">Passive</option><option value="active">Active</option></select></div>
+                        <div>8. The cotton is picked by machines. <select class="select-input" id="p8"><option value="">--</option><option value="passive">Passive</option><option value="active">Active</option></select></div>
+                        <div>9. The factory produces 1000 T-shirts a day. <select class="select-input" id="p9"><option value="">--</option><option value="active">Active</option><option value="passive">Passive</option></select></div>
+                        <div>10. The water is heated. <select class="select-input" id="p10"><option value="">--</option><option value="passive">Passive</option><option value="active">Active</option></select></div>
+                        <div>11. Students read books every day. <select class="select-input" id="p11"><option value="">--</option><option value="active">Active</option><option value="passive">Passive</option></select></div>
+                        <div>12. The books are read by students. <select class="select-input" id="p12"><option value="">--</option><option value="passive">Passive</option><option value="active">Active</option></select></div>
+                    </div>
+                    <button class="btn small primary" onclick="checkIdentify()" style="margin-top:8px;">✅ Check All</button>
+                    <div id="identify-fb" style="font-weight:700; margin-top:6px;"></div>
+                </div>
+
+                <!-- PRACTICE 2: COMPLETE SENTENCES (15) -->
+                <div class="card">
+                    <h3>✍️ Practice 2: Complete the Sentences (15 gaps)</h3>
+                    <p style="color:var(--muted);">Fill in the correct passive form.</p>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:10px; line-height:2.2; font-size:0.9rem;">
+                        <div>1. The T-shirt ______ (make) of cotton. <input type="text" id="g1" class="blank-input" style="width:100px;"></div>
+                        <div>2. The cotton ______ (grow) in India. <input type="text" id="g2" class="blank-input" style="width:100px;"></div>
+                        <div>3. The fabric ______ (cut) into pieces. <input type="text" id="g3" class="blank-input" style="width:100px;"></div>
+                        <div>4. The pieces ______ (sew) together. <input type="text" id="g4" class="blank-input" style="width:100px;"></div>
+                        <div>5. The T-shirts ______ (transport) to stores. <input type="text" id="g5" class="blank-input" style="width:100px;"></div>
+                        <div>6. The bottles ______ (recycle) here. <input type="text" id="g6" class="blank-input" style="width:100px;"></div>
+                        <div>7. The paper ______ (make) from trees. <input type="text" id="g7" class="blank-input" style="width:100px;"></div>
+                        <div>8. The glass ______ (melt) and reused. <input type="text" id="g8" class="blank-input" style="width:100px;"></div>
+                        <div>9. The plastic ______ (turn) into new products. <input type="text" id="g9" class="blank-input" style="width:100px;"></div>
+                        <div>10. The labels ______ (print) on the boxes. <input type="text" id="g10" class="blank-input" style="width:100px;"></div>
+                        <div>11. The water ______ (heat) to 80 degrees. <input type="text" id="g11" class="blank-input" style="width:100px;"></div>
+                        <div>12. The books ______ (send) to schools. <input type="text" id="g12" class="blank-input" style="width:100px;"></div>
+                        <div>13. The food ______ (prepare) in the kitchen. <input type="text" id="g13" class="blank-input" style="width:100px;"></div>
+                        <div>14. The shirts ______ (pack) in boxes. <input type="text" id="g14" class="blank-input" style="width:100px;"></div>
+                        <div>15. The machines ______ (clean) every day. <input type="text" id="g15" class="blank-input" style="width:100px;"></div>
+                    </div>
+                    <button class="btn small primary" onclick="checkComplete()" style="margin-top:8px;">✅ Check All</button>
+                    <div id="complete-fb" style="font-weight:700; margin-top:6px;"></div>
+                </div>
+
+                <!-- PRACTICE 3: ACTIVE TO PASSIVE (12) -->
+                <div class="card">
+                    <h3>🔄 Practice 3: Active to Passive (12 sentences)</h3>
+                    <p style="color:var(--muted);">Rewrite in the passive voice.</p>
+                    <div style="display:flex; flex-direction:column; gap:6px; margin-top:10px;">
+                        <div><strong>1.</strong> People grow cotton in warm countries. → <input type="text" id="a1" class="blank-input" style="width:100%;"></div>
+                        <div><strong>2.</strong> Factories produce T-shirts. → <input type="text" id="a2" class="blank-input" style="width:100%;"></div>
+                        <div><strong>3.</strong> They transport the shirts by truck. → <input type="text" id="a3" class="blank-input" style="width:100%;"></div>
+                        <div><strong>4.</strong> Workers sew the fabric together. → <input type="text" id="a4" class="blank-input" style="width:100%;"></div>
+                        <div><strong>5.</strong> People recycle plastic bottles. → <input type="text" id="a5" class="blank-input" style="width:100%;"></div>
+                        <div><strong>6.</strong> The company sells T-shirts online. → <input type="text" id="a6" class="blank-input" style="width:100%;"></div>
+                        <div><strong>7.</strong> They dye the fabric with natural colors. → <input type="text" id="a7" class="blank-input" style="width:100%;"></div>
+                        <div><strong>8.</strong> The teacher gives homework every day. → <input type="text" id="a8" class="blank-input" style="width:100%;"></div>
+                        <div><strong>9.</strong> People use this machine for cutting. → <input type="text" id="a9" class="blank-input" style="width:100%;"></div>
+                        <div><strong>10.</strong> The workers clean the factory. → <input type="text" id="a10" class="blank-input" style="width:100%;"></div>
+                        <div><strong>11.</strong> Students speak English in this classroom. → <input type="text" id="a11" class="blank-input" style="width:100%;"></div>
+                        <div><strong>12.</strong> The chef prepares the food. → <input type="text" id="a12" class="blank-input" style="width:100%;"></div>
+                    </div>
+                    <button class="btn small primary" onclick="checkActivePassive()" style="margin-top:8px;">✅ Check All</button>
+                    <div id="active-fb" style="font-weight:700; margin-top:6px;"></div>
+                </div>
+
+                <!-- PRACTICE 4: DIALOGUE (12 lines) -->
+                <div class="card" style="border:2px solid var(--secondary);">
+                    <h3>💬 Practice 4: Complete the Dialogue (12 gaps)</h3>
+                    <p style="color:var(--muted);">Fill in the blanks with the passive form.</p>
+                    <div class="dialogue-box">
+                        <div class="line"><span class="speaker">A:</span> Hey, I love your bag! What <input type="text" id="d1" class="blank-input" style="width:100px;"> it ______ (make) of?</div>
+                        <div class="line"><span class="speaker">B:</span> It <input type="text" id="d2" class="blank-input" style="width:100px;"> ______ (make) from recycled plastic bottles!</div>
+                        <div class="line"><span class="speaker">A:</span> That's cool! How <input type="text" id="d3" class="blank-input" style="width:100px;"> the bottles ______ (recycle)?</div>
+                        <div class="line"><span class="speaker">B:</span> First, the bottles <input type="text" id="d4" class="blank-input" style="width:100px;"> ______ (collect) and <input type="text" id="d5" class="blank-input" style="width:100px;"> ______ (clean).</div>
+                        <div class="line"><span class="speaker">A:</span> Then what happens?</div>
+                        <div class="line"><span class="speaker">B:</span> They <input type="text" id="d6" class="blank-input" style="width:100px;"> ______ (melt) and <input type="text" id="d7" class="blank-input" style="width:100px;"> ______ (turn) into thread.</div>
+                        <div class="line"><span class="speaker">A:</span> And then the thread <input type="text" id="d8" class="blank-input" style="width:100px;"> ______ (weave) into fabric?</div>
+                        <div class="line"><span class="speaker">B:</span> Exactly! The fabric <input type="text" id="d9" class="blank-input" style="width:100px;"> ______ (cut) and <input type="text" id="d10" class="blank-input" style="width:100px;"> ______ (sew) into bags.</div>
+                        <div class="line"><span class="speaker">A:</span> And where <input type="text" id="d11" class="blank-input" style="width:100px;"> they ______ (sell)?</div>
+                        <div class="line"><span class="speaker">B:</span> They <input type="text" id="d12" class="blank-input" style="width:100px;"> ______ (sell) in eco-friendly stores!</div>
+                    </div>
+                    <button class="btn small secondary" onclick="checkDialogue()" style="margin-top:8px;">✅ Check Dialogue</button>
+                    <div id="dialogue-fb" style="font-weight:700; margin-top:6px;"></div>
+                </div>
+
+                <!-- PRACTICE 5: ERROR HUNT (15 mistakes) -->
+                <div class="card" style="border:2px solid var(--error);">
+                    <h3>🔍 Practice 5: Error Hunt (15 sentences)</h3>
+                    <p style="color:var(--muted);">Find the mistake and type the corrected sentence.</p>
+                    <div style="display:flex; flex-direction:column; gap:6px; margin-top:10px; font-size:0.9rem;">
+                        <div class="error-hunt-item"><strong>1.</strong> The cotton is grow in India. → <input type="text" id="e1" class="blank-input" style="width:100%;"></div>
+                        <div class="error-hunt-item"><strong>2.</strong> The T-shirts are make in China. → <input type="text" id="e2" class="blank-input" style="width:100%;"></div>
+                        <div class="error-hunt-item"><strong>3.</strong> The fabric are cut into pieces. → <input type="text" id="e3" class="blank-input" style="width:100%;"></div>
+                        <div class="error-hunt-item"><strong>4.</strong> The bottles is recycled here. → <input type="text" id="e4" class="blank-input" style="width:100%;"></div>
+                        <div class="error-hunt-item"><strong>5.</strong> The paper is make from trees. → <input type="text" id="e5" class="blank-input" style="width:100%;"></div>
+                        <div class="error-hunt-item"><strong>6.</strong> The glass are melted and reused. → <input type="text" id="e6" class="blank-input" style="width:100%;"></div>
+                        <div class="error-hunt-item"><strong>7.</strong> The labels is printed on the boxes. → <input type="text" id="e7" class="blank-input" style="width:100%;"></div>
+                        <div class="error-hunt-item"><strong>8.</strong> The water are heated to 80 degrees. → <input type="text" id="e8" class="blank-input" style="width:100%;"></div>
+                        <div class="error-hunt-item"><strong>9.</strong> The books is sent to schools. → <input type="text" id="e9" class="blank-input" style="width:100%;"></div>
+                        <div class="error-hunt-item"><strong>10.</strong> The food are prepared in the kitchen. → <input type="text" id="e10" class="blank-input" style="width:100%;"></div>
+                        <div class="error-hunt-item"><strong>11.</strong> The shirts is packed in boxes. → <input type="text" id="e11" class="blank-input" style="width:100%;"></div>
+                        <div class="error-hunt-item"><strong>12.</strong> The machines is cleaned every day. → <input type="text" id="e12" class="blank-input" style="width:100%;"></div>
+                        <div class="error-hunt-item"><strong>13.</strong> The T-shirt are worn by people. → <input type="text" id="e13" class="blank-input" style="width:100%;"></div>
+                        <div class="error-hunt-item"><strong>14.</strong> The cotton are grown on farms. → <input type="text" id="e14" class="blank-input" style="width:100%;"></div>
+                        <div class="error-hunt-item"><strong>15.</strong> The fabric are woven together. → <input type="text" id="e15" class="blank-input" style="width:100%;"></div>
+                    </div>
+                    <button class="btn small error" onclick="checkErrors()" style="margin-top:8px;">✅ Check All</button>
+                    <div id="error-fb" style="font-weight:700; margin-top:6px;"></div>
+                </div>
+
+                <div class="bridge">
+                    🎉 Great grammar practice! Now let's take the passive voice and <strong>apply it</strong> in a fun guessing game! 🎯
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- TAB 4: APPLIED GRAMMAR – GUESS THE OBJECT             -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <section id="tab-applied" class="tab-content">
+                <h2 class="section-title">🎯 Applied Grammar – Guess the Object</h2>
+
+                <div class="bridge">
+                    Now let's <strong>apply</strong> the passive voice in a fun, interactive game!<br>
+                    You'll describe objects using the passive voice, and others will guess what they are. 🤔
+                </div>
+
+                <!-- DEMO FLASHCARD -->
+                <div class="card" style="border:2px solid var(--accent);">
+                    <h3>📌 Demonstration: How to Use the Flashcards</h3>
+                    <p style="color:var(--muted);">
+                        Click the flashcard below to reveal its passive description. <strong>This is how you'll play the game!</strong>
+                    </p>
+                    <div style="display:flex; justify-content:center; margin:12px 0;">
+                        <div class="flashcard flashcard-demo" onclick="demoFlashcard()" id="demo-flashcard">
+                            <span class="emoji">👕</span>
+                            <span class="hint">👆 Click me!</span>
+                            <span class="passive-desc">It is made of cotton. It is worn on your body.</span>
+                        </div>
+                    </div>
+                    <p style="font-size:0.9rem; color:var(--muted); text-align:center;">
+                        💡 <strong>Now you try:</strong> Describe an object using the passive voice. Use these questions:
+                    </p>
+                    <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:6px;">
+                        <span class="cc-phrase">"What is it made of?"</span>
+                        <span class="cc-phrase">"What is it used for?"</span>
+                        <span class="cc-phrase">"Where is it found?"</span>
+                        <span class="cc-phrase">"Who uses it?"</span>
+                    </div>
+                </div>
+
+                <!-- FLASHCARDS GRID -->
+                <div class="card">
+                    <h3>🃏 Flashcards – Click to Reveal</h3>
+                    <p style="color:var(--muted);">Click on any card to see its passive description. Practice reading the sentences out loud!</p>
+                    <div class="flashcard-grid" id="flashcard-grid">
+                        <!-- Injected by JS -->
+                    </div>
+                    <button class="btn small outline" onclick="resetFlashcards()" style="margin-top:8px;">🔄 Reset Flashcards</button>
+                </div>
+
+                <!-- 30+ OBJECTS FOR GROUP WORK -->
+                <div class="card" style="border:2px solid var(--secondary);">
+                    <h3>📋 30+ Objects – Pick One for Your Group!</h3>
+                    <p style="color:var(--muted);">
+                        <strong>Group Activity:</strong> Work in groups of 3–4. Choose <strong>one object</strong> from the list below.
+                        Write <strong>3–5 passive sentences</strong> describing it. Read your descriptions to another group – they guess the object!
+                    </p>
+
+                    <div class="object-list-grid" id="object-list-grid">
+                        <!-- Injected by JS -->
+                    </div>
+
+                    <div class="cc-box" style="margin-top:10px;">
+                        <strong>💬 Useful Phrases for the Guessing Game:</strong>
+                        <span class="cc-phrase">"What is it made of?"</span>
+                        <span class="cc-phrase">"What is it used for?"</span>
+                        <span class="cc-phrase">"Where is it found?"</span>
+                        <span class="cc-phrase">"Is it made of...?"</span>
+                        <span class="cc-phrase">"Is it used for...?"</span>
+                        <span class="cc-phrase">"I think it's a/an..."</span>
+                        <span class="cc-phrase">"Can you give me another hint?"</span>
+                    </div>
+
+                    <div style="margin-top:12px;">
+                        <p style="font-weight:700; color:var(--accent);">📝 Write your group's descriptions here:</p>
+                        <textarea id="group-descriptions" rows="4" class="sb-input" placeholder="Write 3-5 passive sentences describing your object..."></textarea>
+                        <button class="btn small secondary" onclick="checkGroupDescriptions()" style="margin-top:6px;">💡 Check My Descriptions (+5 XP)</button>
+                        <div id="group-fb" style="font-weight:700; margin-top:6px;"></div>
+                    </div>
+                </div>
+
+                <div class="bridge">
+                    🎉 Amazing work! Now let's use the passive voice to <strong>explain a process</strong> and create a presentation! 🗣️
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- TAB 5: SPEAKING – PROCESS & PRESENT                    -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <section id="tab-speaking" class="tab-content">
+                <h2 class="section-title">🗣️ Speaking – Process Explainer &amp; Presentation</h2>
+
+                <div class="bridge">
+                    Now it's your turn to <strong>explain a process</strong> using the passive voice!
+                    <br><br>
+                    First, watch the video below to see how it's done. Then choose a process, write your steps, and prepare a presentation. 🎬
+                </div>
+
+                <!-- VIDEO – FIXED EMBED -->
+                <div class="card" style="border:2px solid var(--primary-light);">
+                    <h3>🎬 Video: How to Describe a Process</h3>
+                    <p style="color:var(--muted);">Watch this video to learn how to describe a process using the passive voice and sequencing words.</p>
+                    <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:10px; margin-top:10px;">
+                        <iframe src="https://www.youtube.com/embed/T_M3XzPKJ14?start=160" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
+                    </div>
+                    <p style="font-size:0.85rem; color:var(--muted); margin-top:8px; text-align:center;">
+                        📌 <strong>Key takeaways:</strong> Use the <strong>passive voice</strong> + <strong>sequencing words</strong> (First, Then, Next, After that, Finally).
+                        <br>
+                        🔗 If the video doesn't load, <a href="https://www.youtube.com/watch?v=T_M3XzPKJ14&t=160s" target="_blank" style="color:var(--accent);">click here to watch on YouTube</a>.
+                    </p>
+                </div>
+
+                <!-- EXAMPLE PROCESS -->
+                <div class="card" style="border:2px solid var(--primary-light);">
+                    <h3>📖 Example: The Lifecycle of a Plastic Bottle</h3>
+                    <div class="process-steps">
+                        <div class="process-step"><span class="num">1</span><span class="text"><strong>Oil</strong> is taken from the ground.</span></div>
+                        <div class="process-step"><span class="num">2</span><span class="text"><strong>Oil</strong> is made into plastic pellets.</span></div>
+                        <div class="process-step"><span class="num">3</span><span class="text"><strong>Pellets</strong> are melted and shaped into bottles.</span></div>
+                        <div class="process-step"><span class="num">4</span><span class="text"><strong>Bottles</strong> are filled with water.</span></div>
+                        <div class="process-step"><span class="num">5</span><span class="text"><strong>Bottles</strong> are transported to stores.</span></div>
+                        <div class="process-step"><span class="num">6</span><span class="text"><strong>Bottles</strong> are sold to consumers.</span></div>
+                        <div class="process-step"><span class="num">7</span><span class="text"><strong>Bottles</strong> are used and then thrown away.</span></div>
+                        <div class="process-step"><span class="num">8</span><span class="text">Some <strong>bottles</strong> are recycled into new products.</span></div>
+                    </div>
+                </div>
+
+                <!-- YOUR TURN + PRESENTATION (MERGED) -->
+                <div class="card" style="border:2px solid var(--secondary);">
+                    <h3>🎤 Your Turn: Explain a Process &amp; Present It</h3>
+                    <p style="color:var(--muted);">
+                        Choose one of the processes below. Write the steps in the passive voice, then create a <strong>short presentation</strong> with images to explain it to the class.
+                    </p>
+
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:12px 0;">
+                        <div style="background:var(--surface); border-radius:8px; padding:12px; border:1px solid var(--border);">
+                            <h4 style="color:#60A5FA;">👕 A T-shirt</h4>
+                            <ul style="font-size:0.85rem; color:var(--muted); line-height:1.8; margin-left:16px;">
+                                <li>Cotton / grow</li>
+                                <li>Cotton / pick</li>
+                                <li>Cotton / spin / into thread</li>
+                                <li>Thread / weave / into fabric</li>
+                                <li>Fabric / cut</li>
+                                <li>Fabric / sew</li>
+                                <li>T-shirt / dye</li>
+                                <li>T-shirt / package</li>
+                                <li>T-shirt / transport / to stores</li>
+                            </ul>
+                        </div>
+                        <div style="background:var(--surface); border-radius:8px; padding:12px; border:1px solid var(--border);">
+                            <h4 style="color:#34D399;">♻️ Recycling Paper</h4>
+                            <ul style="font-size:0.85rem; color:var(--muted); line-height:1.8; margin-left:16px;">
+                                <li>Paper / collect</li>
+                                <li>Paper / sort</li>
+                                <li>Paper / shred</li>
+                                <li>Paper / mix / with water</li>
+                                <li>Pulp / press</li>
+                                <li>Pulp / dry</li>
+                                <li>New paper / cut</li>
+                                <li>New paper / package</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div style="margin:12px 0;">
+                        <p style="font-weight:700; color:var(--accent);">📝 Write your process steps here (this will be your presentation script):</p>
+                        <textarea id="process-write" rows="10" class="sb-input" placeholder="Write the steps of your process in the passive voice..."></textarea>
+                    </div>
+                    <button class="btn small secondary" onclick="checkProcess()">💡 Check My Process (+10 XP)</button>
+                    <div id="process-fb" style="font-weight:700; margin-top:6px;"></div>
+
+                    <!-- CONFIDENT COMMUNICATOR -->
+                    <div class="cc-box" style="margin-top:12px;">
+                        <strong>💬 Confident Communicator – Ordering Steps:</strong>
+                        <span class="cc-phrase">First, it's...</span>
+                        <span class="cc-phrase">Then, it's...</span>
+                        <span class="cc-phrase">Next, it's...</span>
+                        <span class="cc-phrase">After that, it's...</span>
+                        <span class="cc-phrase">Finally, it's...</span>
+                    </div>
+
+                    <div style="margin-top:12px; background:var(--surface); border-radius:8px; padding:14px; border:1px solid var(--accent);">
+                        <h4 style="color:var(--accent);">📊 Presentation Instructions:</h4>
+                        <ol style="margin-left:20px; line-height:2.2; font-size:0.9rem; color:var(--muted);">
+                            <li><strong>Choose a process</strong> – from the list above or invent your own.</li>
+                            <li><strong>Find or draw images</strong> – 4–6 images that show each step.</li>
+                            <li><strong>Use your process steps</strong> (above) as your script.</li>
+                            <li><strong>Practice</strong> – present to your partner first.</li>
+                            <li><strong>Present</strong> – share your presentation with the class!</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="bridge">
+                    🎤 Amazing work! Now let's wrap up the class with a final reflection. 🏁
+                </div>
+            </section>
+
+            <!-- ════════════════════════════════════════════════════════ -->
+            <!-- TAB 6: WRAP-UP                                            -->
+            <!-- ════════════════════════════════════════════════════════ -->
+            <section id="tab-wrapup" class="tab-content">
+                <div class="exit-ticket">
+                    <h2 style="color:white; margin-bottom:8px;">🏆 Class Complete!</h2>
+                    <p style="opacity:0.85; margin-bottom:12px;">You've mastered the passive voice and learned to describe processes!</p>
+                    <div style="background:rgba(255,255,255,0.08); border-radius:12px; padding:20px; text-align:left;">
+                        <h4 style="color:var(--accent);">🎟️ Exit Ticket</h4>
+                        <p style="font-size:0.9rem; opacity:0.8;">Answer these questions to reflect on your learning:</p>
+                        <ol style="margin-left:20px; margin-top:8px; line-height:2;">
+                            <li>What is the passive voice and when do we use it?</li>
+                            <li>What is one new word you learned today?</li>
+                            <li>Write a passive sentence about something you learned in this unit.</li>
+                        </ol>
+                        <textarea id="exit-answer" rows="4" placeholder="Type your answers here..." style="width:100%; border-radius:10px; border:none; padding:12px; background:rgba(255,255,255,0.06); color:var(--text); font-family:inherit; margin-top:8px; resize:vertical;"></textarea>
+                        <button class="btn accent" onclick="submitExitTicket()">✅ Complete & Get Badge</button>
+                        <div id="exit-badge" style="display:none; margin-top:12px;">
+                            <span class="badge">♻️ Passive Voice Master!</span>
+                            <p style="margin-top:8px; opacity:0.8;">You earned <strong id="final-xp">0</strong> XP today!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ════════════════════════════════════════════════════════ -->
+        <!-- TEACHER ANSWER SHEET                                     -->
+        <!-- ════════════════════════════════════════════════════════ -->
+        <div class="teacher-answers" id="teacher-answers">
+            <h3>🎓 Teacher's Answer Sheet – Class 7</h3>
+            <p style="color:var(--muted); margin-bottom:12px;">All answers, game solutions, and tips for the substitute teacher.</p>
+
+            <!-- Eco-Warrior Answers -->
+            <div class="answer-block">
+                <strong>🌍 Eco-Warrior Challenge – Answer Key (20 questions)</strong><br>
+                <ol style="margin-left:20px; line-height:1.8; font-size:0.9rem; color:var(--muted);">
+                    <li>B (plastic)</li>
+                    <li>A (glass)</li>
+                    <li>C (paper)</li>
+                    <li>B (metal)</li>
+                    <li>A (wood)</li>
+                    <li>C (leather)</li>
+                    <li>B (recycled paper)</li>
+                    <li>A (plastic bottles)</li>
+                    <li>C (glass jars)</li>
+                    <li>B (aluminum cans)</li>
+                    <li>A (cotton)</li>
+                    <li>C (nylon)</li>
+                    <li>B (wool)</li>
+                    <li>A (silk)</li>
+                    <li>C (polyester)</li>
+                    <li>B (paper bags)</li>
+                    <li>A (reusable bags)</li>
+                    <li>C (composting)</li>
+                    <li>B (recycling)</li>
+                    <li>A (landfills)</li>
+                </ol>
+            </div>
+
+            <!-- Word Gladiator Answers -->
+            <div class="answer-block">
+                <strong>🗡️ Word Gladiator – Vocabulary List (20+ words)</strong><br>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px; font-size:0.85rem; color:var(--muted); margin-top:4px;">
+                    <div><strong>recycle</strong> – turn waste into new materials</div>
+                    <div><strong>reuse</strong> – use something again</div>
+                    <div><strong>landfill</strong> – a place where waste is buried</div>
+                    <div><strong>upcycle</strong> – transform waste into something better</div>
+                    <div><strong>environment</strong> – the natural world around us</div>
+                    <div><strong>sustainable</strong> – using resources without harming the environment</div>
+                    <div><strong>waste</strong> – unwanted materials left over</div>
+                    <div><strong>resources</strong> – things we use from the Earth</div>
+                    <div><strong>pollution</strong> – harmful substances in the environment</div>
+                    <div><strong>compost</strong> – decayed organic matter used as fertilizer</div>
+                    <div><strong>renewable</strong> – can be replaced naturally</div>
+                    <div><strong>biodegradable</strong> – can be broken down naturally</div>
+                    <div><strong>carbon footprint</strong> – the amount of carbon dioxide we produce</div>
+                    <div><strong>eco-friendly</strong> – not harmful to the environment</div>
+                    <div><strong>conservation</strong> – protection of the environment</div>
+                    <div><strong>fabric</strong> – cloth or material</div>
+                    <div><strong>raw materials</strong> – basic materials used to make products</div>
+                    <div><strong>manufacturing</strong> – the process of making products</div>
+                    <div><strong>packaging</strong> – materials used to wrap products</div>
+                    <div><strong>disposable</strong> – intended to be thrown away after use</div>
+                    <div><strong>durable</strong> – long-lasting and strong</div>
+                </div>
+            </div>
+
+            <!-- Grammar Answers -->
+            <div class="answer-block">
+                <strong>⚡ Grammar Arena – Answer Keys</strong><br>
+
+                <p style="margin-top:6px;"><strong>Practice 1 (Active/Passive):</strong> 1.passive, 2.active, 3.passive, 4.active, 5.passive, 6.active, 7.passive, 8.passive, 9.active, 10.passive, 11.active, 12.passive</p>
+
+                <p style="margin-top:6px;"><strong>Practice 2 (Complete Sentences):</strong> 1.is made, 2.is grown, 3.is cut, 4.are sewn, 5.are transported, 6.are recycled, 7.is made, 8.is melted, 9.is turned, 10.are printed, 11.is heated, 12.are sent, 13.is prepared, 14.are packed, 15.are cleaned</p>
+
+                <p style="margin-top:6px;"><strong>Practice 3 (Active to Passive):</strong><br>
+                    1. Cotton is grown in warm countries.<br>
+                    2. T-shirts are produced by factories.<br>
+                    3. The shirts are transported by truck.<br>
+                    4. The fabric is sewn together.<br>
+                    5. Plastic bottles are recycled.<br>
+                    6. T-shirts are sold online.<br>
+                    7. The fabric is dyed with natural colors.<br>
+                    8. Homework is given every day.<br>
+                    9. This machine is used for cutting.<br>
+                    10. The factory is cleaned.<br>
+                    11. English is spoken in this classroom.<br>
+                    12. The food is prepared by the chef.</p>
+
+                <p style="margin-top:6px;"><strong>Practice 4 (Dialogue):</strong> 1.is, 2.is made, 3.are recycled, 4.are collected, 5.are cleaned, 6.are melted, 7.are turned, 8.is woven, 9.is cut, 10.is sewn, 11.are sold, 12.are sold</p>
+
+                <p style="margin-top:6px;"><strong>Practice 5 (Error Hunt):</strong><br>
+                    1. The cotton is grown in India.<br>
+                    2. The T-shirts are made in China.<br>
+                    3. The fabric is cut into pieces.<br>
+                    4. The bottles are recycled here.<br>
+                    5. The paper is made from trees.<br>
+                    6. The glass is melted and reused.<br>
+                    7. The labels are printed on the boxes.<br>
+                    8. The water is heated to 80 degrees.<br>
+                    9. The books are sent to schools.<br>
+                    10. The food is prepared in the kitchen.<br>
+                    11. The shirts are packed in boxes.<br>
+                    12. The machines are cleaned every day.<br>
+                    13. The T-shirt is worn by people.<br>
+                    14. The cotton is grown on farms.<br>
+                    15. The fabric is woven together.</p>
+            </div>
+
+            <!-- Applied Grammar -->
+            <div class="answer-block">
+                <strong>🎯 Applied Grammar – Flashcards &amp; 30+ Objects</strong><br>
+                <p style="font-size:0.85rem; color:var(--muted); margin-top:4px;">
+                    <strong>Flashcards:</strong> Pre-loaded with passive descriptions. Students click to reveal.<br>
+                    <strong>30+ Objects:</strong> T-shirt, plastic bottle, cardboard box, shopping bag, sneakers, smartphone, teddy bear, coffee mug, car, light bulb, book, chair, watch, laptop, backpack, sunglasses, water bottle, jeans, jacket, table, lamp, mirror, clock, painting, guitar, sofa, computer, glasses, keys, wallet, umbrella, hat, shoes, bag, ring, necklace.
+                </p>
+                <p style="font-size:0.85rem; color:var(--muted); margin-top:4px;">
+                    <strong>Group Activity:</strong> Students write 3–5 passive sentences about their chosen object. Encourage: "It is made of...", "It is used for...", "It is found in...", "It is sold in...".
+                </p>
+            </div>
+
+            <!-- Speaking -->
+            <div class="answer-block">
+                <strong>🗣️ Process Explainer &amp; Presentation – Teacher Tips</strong><br>
+                <ul style="margin-left:20px; line-height:1.8; font-size:0.9rem; color:var(--muted);">
+                    <li><strong>Video:</strong> Embedded YouTube video explains how to describe a process using the passive voice and sequencing words.</li>
+                    <li><strong>Example:</strong> The lifecycle of a plastic bottle is provided as a model.</li>
+                    <li><strong>Student Task:</strong> Choose a process (T-shirt or recycling paper) and write the steps in the passive voice.</li>
+                    <li><strong>Presentation:</strong> Students use their process steps as a script and add images to present to the class.</li>
+                    <li><strong>Sequencing words:</strong> First, Then, Next, After that, Finally.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ════════════════════════════════════════════════════════════════
+        // 1. TAB NAVIGATION
+        // ════════════════════════════════════════════════════════════════
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(tabId)) {
+                    b.classList.add('active');
+                }
+            });
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 2. XP SYSTEM
+        // ════════════════════════════════════════════════════════════════
+        let totalXP = 0;
+        const XP_MAX = 700;
+
+        function addXP(amount) {
+            totalXP = Math.min(totalXP + amount, XP_MAX);
+            document.getElementById('xp-score').textContent = totalXP;
+            document.getElementById('xp-fill').style.width = (totalXP / XP_MAX * 100) + '%';
+            const scoreEl = document.getElementById('xp-score');
+            scoreEl.style.transform = 'scale(1.3)';
+            setTimeout(() => scoreEl.style.transform = 'scale(1)', 200);
+            return totalXP;
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 3. SHUFFLE FUNCTION
+        // ════════════════════════════════════════════════════════════════
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 4. ECO-WARRIOR CHALLENGE (20 questions)
+        // ════════════════════════════════════════════════════════════════
+        const ecoQuestions = [{
+            q: "Which material is commonly used to make water bottles?",
+            o: ["A. Glass", "B. Plastic", "C. Paper", "D. Wood"],
+            a: 1
+        }, {
+            q: "What material is made from sand and is often recycled?",
+            o: ["A. Glass", "B. Plastic", "C. Metal", "D. Rubber"],
+            a: 0
+        }, {
+            q: "Which of these is biodegradable?",
+            o: ["A. Plastic", "B. Glass", "C. Paper", "D. Metal"],
+            a: 2
+        }, {
+            q: "What material is often used to make cans for food and drinks?",
+            o: ["A. Glass", "B. Metal", "C. Wood", "D. Cotton"],
+            a: 1
+        }, {
+            q: "Which material comes from trees?",
+            o: ["A. Wood", "B. Plastic", "C. Metal", "D. Rubber"],
+            a: 0
+        }, {
+            q: "What material is made from animal skin and used to make shoes?",
+            o: ["A. Plastic", "B. Wool", "C. Leather", "D. Cotton"],
+            a: 2
+        }, {
+            q: "What material is commonly made from recycled paper?",
+            o: ["A. Glass bottles", "B. Recycled paper", "C. Plastic bags", "D. Metal cans"],
+            a: 1
+        }, {
+            q: "Which of these is made from oil?",
+            o: ["A. Plastic bottles", "B. Glass jars", "C. Wooden tables", "D. Cotton shirts"],
+            a: 0
+        }, {
+            q: "What type of container is typically made of glass?",
+            o: ["A. Plastic bags", "B. Cardboard boxes", "C. Glass jars", "D. Metal cans"],
+            a: 2
+        }, {
+            q: "Which material is often used to make aluminum foil?",
+            o: ["A. Paper", "B. Aluminum cans", "C. Plastic", "D. Glass"],
+            a: 1
+        }, {
+            q: "What natural fiber is used to make T-shirts?",
+            o: ["A. Cotton", "B. Plastic", "C. Wool", "D. Nylon"],
+            a: 0
+        }, {
+            q: "Which synthetic material is made from petroleum?",
+            o: ["A. Cotton", "B. Wool", "C. Nylon", "D. Silk"],
+            a: 2
+        }, {
+            q: "What material is produced by sheep?",
+            o: ["A. Cotton", "B. Wool", "C. Silk", "D. Linen"],
+            a: 1
+        }, {
+            q: "Which fabric is made from silkworm cocoons?",
+            o: ["A. Silk", "B. Cotton", "C. Wool", "D. Linen"],
+            a: 0
+        }, {
+            q: "What material is commonly used to make plastic bags?",
+            o: ["A. Glass", "B. Paper", "C. Polyester", "D. Wood"],
+            a: 2
+        }, {
+            q: "Which of these is a renewable resource?",
+            o: ["A. Oil", "B. Paper bags", "C. Plastic", "D. Aluminum"],
+            a: 1
+        }, {
+            q: "What is the most eco-friendly alternative to plastic bags?",
+            o: ["A. Reusable bags", "B. Paper bags", "C. Plastic bags", "D. Aluminum foil"],
+            a: 0
+        }, {
+            q: "Which of these processes helps reduce waste?",
+            o: ["A. Burning trash", "B. Throwing away", "C. Composting", "D. Dumping in the ocean"],
+            a: 2
+        }, {
+            q: "What is the process of turning old materials into new products called?",
+            o: ["A. Upcycling", "B. Recycling", "C. Burning", "D. Landfilling"],
+            a: 1
+        }, {
+            q: "Where does most of our waste end up?",
+            o: ["A. Landfills", "B. Recycling centers", "C. Oceans", "D. Compost bins"],
+            a: 0
+        }];
+
+        let ecoIdx = 0;
+        let ecoScore = 0;
+        let ecoActive = false;
+
+        function startEcoGame() {
+            ecoIdx = 0;
+            ecoScore = 0;
+            ecoActive = true;
+            document.getElementById('eco-xp').textContent = '0';
+            document.getElementById('eco-start-btn').disabled = true;
+            document.getElementById('eco-start-btn').textContent = '⏳ Playing...';
+            loadEcoQuestion();
+        }
+
+        function loadEcoQuestion() {
+            if (ecoIdx >= ecoQuestions.length) {
+                document.getElementById('eco-question').textContent = '🎉 You completed all 20 questions! Amazing!';
+                document.getElementById('eco-options').innerHTML = '';
+                document.getElementById('eco-fb').textContent = '🏆 You are an Eco-Warrior! +20 bonus XP!';
+                document.getElementById('eco-fb').style.color = 'var(--success)';
+                document.getElementById('eco-start-btn').disabled = false;
+                document.getElementById('eco-start-btn').textContent = '🔄 Play Again';
+                addXP(20);
+                ecoActive = false;
+                return;
+            }
+            const q = ecoQuestions[ecoIdx];
+            document.getElementById('eco-round').textContent = (ecoIdx + 1) + ' / 20';
+            document.getElementById('eco-question').textContent = q.q;
+            const optsDiv = document.getElementById('eco-options');
+            optsDiv.innerHTML = '';
+            q.o.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.textContent = opt;
+                btn.className = 'btn small';
+                btn.style.background = '#E5E7EB';
+                btn.style.color = 'black';
+                btn.onclick = () => checkEcoAnswer(i);
+                optsDiv.appendChild(btn);
+            });
+            document.getElementById('eco-fb').textContent = '';
+        }
+
+        function checkEcoAnswer(idx) {
+            const btns = document.querySelectorAll('#eco-options button');
+            btns.forEach(b => b.disabled = true);
+            const q = ecoQuestions[ecoIdx];
+            if (idx === q.a) {
+                btns[idx].style.background = '#D1FAE5';
+                document.getElementById('eco-fb').textContent = '✅ Correct! +5 XP';
+                document.getElementById('eco-fb').style.color = 'var(--success)';
+                ecoScore++;
+                document.getElementById('eco-xp').textContent = ecoScore;
+                addXP(5);
+            } else {
+                btns[idx].style.background = '#FEE2E2';
+                btns[q.a].style.background = '#D1FAE5';
+                document.getElementById('eco-fb').textContent = '❌ The correct answer was: ' + q.o[q.a];
+                document.getElementById('eco-fb').style.color = 'var(--error)';
+            }
+            setTimeout(() => {
+                ecoIdx++;
+                loadEcoQuestion();
+            }, 1000);
+        }
+
+        function resetEcoGame() {
+            ecoIdx = 0;
+            ecoScore = 0;
+            ecoActive = false;
+            document.getElementById('eco-round').textContent = '1 / 20';
+            document.getElementById('eco-question').textContent = 'Click "Start Challenge" to begin!';
+            document.getElementById('eco-options').innerHTML = '';
+            document.getElementById('eco-fb').textContent = '';
+            document.getElementById('eco-xp').textContent = '0';
+            document.getElementById('eco-start-btn').disabled = false;
+            document.getElementById('eco-start-btn').textContent = '🚀 Start Challenge';
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 5. WORD GLADIATOR (20+ words)
+        // ════════════════════════════════════════════════════════════════
+        const gladiatorWords = [
+            { word: 'recycle', def: 'Turn waste into new materials' },
+            { word: 'reuse', def: 'Use something again' },
+            { word: 'landfill', def: 'A place where waste is buried' },
+            { word: 'upcycle', def: 'Transform waste into something better' },
+            { word: 'environment', def: 'The natural world around us' },
+            { word: 'sustainable', def: 'Using resources without harming the environment' },
+            { word: 'waste', def: 'Unwanted materials left over' },
+            { word: 'resources', def: 'Things we use from the Earth' },
+            { word: 'pollution', def: 'Harmful substances in the environment' },
+            { word: 'compost', def: 'Decayed organic matter used as fertilizer' },
+            { word: 'renewable', def: 'Can be replaced naturally' },
+            { word: 'biodegradable', def: 'Can be broken down naturally' },
+            { word: 'carbon footprint', def: 'The amount of carbon dioxide we produce' },
+            { word: 'eco-friendly', def: 'Not harmful to the environment' },
+            { word: 'conservation', def: 'Protection of the environment' },
+            { word: 'fabric', def: 'Cloth or material' },
+            { word: 'raw materials', def: 'Basic materials used to make products' },
+            { word: 'manufacturing', def: 'The process of making products' },
+            { word: 'packaging', def: 'Materials used to wrap products' },
+            { word: 'disposable', def: 'Intended to be thrown away after use' },
+            { word: 'durable', def: 'Long-lasting and strong' }
+        ];
+
+        let gladIdx = 0;
+        let gladScore = 0;
+        let gladStreak = 0;
+        let gladLevel = 1;
+        let gladActive = false;
+        let gladTotal = gladiatorWords.length;
+
+        function startGladiator() {
+            gladIdx = 0;
+            gladScore = 0;
+            gladStreak = 0;
+            gladLevel = 1;
+            gladActive = true;
+            document.getElementById('gladiator-score').textContent = '0';
+            document.getElementById('gladiator-total').textContent = gladTotal;
+            document.getElementById('gladiator-streak').textContent = '0';
+            document.getElementById('gladiator-level').textContent = '1';
+            document.getElementById('gladiator-start-btn').disabled = true;
+            document.getElementById('gladiator-start-btn').textContent = '⚔️ Fighting...';
+            renderGladiatorProgress();
+            loadGladiatorQuestion();
+        }
+
+        function loadGladiatorQuestion() {
+            if (gladIdx >= gladTotal) {
+                document.getElementById('gladiator-word').textContent = '🏆 YOU ARE THE CHAMPION! 🏆';
+                document.getElementById('gladiator-options').innerHTML = '';
+                document.getElementById('gladiator-fb').textContent = '🎉 Perfect! +20 bonus XP!';
+                document.getElementById('gladiator-fb').style.color = 'var(--success)';
+                document.getElementById('gladiator-start-btn').disabled = false;
+                document.getElementById('gladiator-start-btn').textContent = '🔄 Play Again';
+                addXP(20);
+                gladActive = false;
+                return;
+            }
+
+            const word = gladiatorWords[gladIdx];
+            document.getElementById('gladiator-word').textContent = '📝 ' + word.word;
+
+            // Build options: 1 correct + 3 wrong
+            const wrongDefs = gladiatorWords.filter(w => w.def !== word.def).map(w => w.def);
+            const shuffledWrong = shuffleArray([...wrongDefs]).slice(0, 3);
+            const options = shuffleArray([word.def, ...shuffledWrong]);
+
+            const optsDiv = document.getElementById('gladiator-options');
+            optsDiv.innerHTML = '';
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.textContent = opt;
+                btn.onclick = () => checkGladiatorAnswer(btn, opt, word.def);
+                optsDiv.appendChild(btn);
+            });
+            document.getElementById('gladiator-fb').textContent = '';
+            renderGladiatorProgress();
+        }
+
+        function checkGladiatorAnswer(btn, selected, correct) {
+            const btns = document.querySelectorAll('#gladiator-options button');
+            btns.forEach(b => b.disabled = true);
+
+            if (selected === correct) {
+                btn.classList.add('correct');
+                gladScore++;
+                gladStreak++;
+                document.getElementById('gladiator-score').textContent = gladScore;
+                document.getElementById('gladiator-streak').textContent = gladStreak;
+                gladLevel = Math.floor(gladScore / 5) + 1;
+                document.getElementById('gladiator-level').textContent = gladLevel;
+                const bonus = gladStreak >= 3 ? 3 : 0;
+                document.getElementById('gladiator-fb').textContent = '✅ Correct! +5 XP' + (bonus ? ' 🔥 Streak bonus +' +
+                    bonus + ' XP!' : '');
+                document.getElementById('gladiator-fb').style.color = 'var(--success)';
+                addXP(5 + bonus);
+            } else {
+                btn.classList.add('wrong');
+                gladStreak = 0;
+                document.getElementById('gladiator-streak').textContent = '0';
+                btns.forEach(b => {
+                    if (b.textContent === correct) b.classList.add('correct');
+                });
+                document.getElementById('gladiator-fb').textContent = '❌ The answer was: ' + correct;
+                document.getElementById('gladiator-fb').style.color = 'var(--error)';
+            }
+            renderGladiatorProgress();
+            setTimeout(() => {
+                gladIdx++;
+                loadGladiatorQuestion();
+            }, 1200);
+        }
+
+        function renderGladiatorProgress() {
+            const container = document.getElementById('gladiator-progress');
+            container.innerHTML = '';
+            for (let i = 0; i < gladTotal; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (i < gladIdx) {
+                    dot.classList.add('win');
+                } else if (i === gladIdx) {
+                    dot.classList.add('current');
+                }
+                container.appendChild(dot);
+            }
+        }
+
+        function resetGladiator() {
+            gladIdx = 0;
+            gladScore = 0;
+            gladStreak = 0;
+            gladLevel = 1;
+            gladActive = false;
+            document.getElementById('gladiator-word').textContent = 'Click "Enter the Arena" to begin!';
+            document.getElementById('gladiator-options').innerHTML = '';
+            document.getElementById('gladiator-fb').textContent = '';
+            document.getElementById('gladiator-score').textContent = '0';
+            document.getElementById('gladiator-streak').textContent = '0';
+            document.getElementById('gladiator-level').textContent = '1';
+            document.getElementById('gladiator-total').textContent = gladTotal;
+            document.getElementById('gladiator-start-btn').disabled = false;
+            document.getElementById('gladiator-start-btn').textContent = '🗡️ Enter the Arena';
+            document.getElementById('gladiator-progress').innerHTML = '';
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 6. DEMO FLASHCARD
+        // ════════════════════════════════════════════════════════════════
+        let demoRevealed = false;
+
+        function demoFlashcard() {
+            const el = document.getElementById('demo-flashcard');
+            demoRevealed = !demoRevealed;
+            el.classList.toggle('revealed', demoRevealed);
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 7. FLASHCARDS – GUESS THE OBJECT
+        // ════════════════════════════════════════════════════════════════
+        const flashcardData = [
+            { emoji: '👕', desc: 'It is made of cotton. It is worn on your body.' },
+            { emoji: '🧴', desc: 'It is made of plastic. It is used for carrying water.' },
+            { emoji: '📦', desc: 'It is made of recycled paper. It is used for shipping.' },
+            { emoji: '🛍️', desc: 'It is made of paper or plastic. It is used for carrying groceries.' },
+            { emoji: '👟', desc: 'They are made of leather and rubber. They are worn on your feet.' },
+            { emoji: '📱', desc: 'It is made of metal and glass. It is used for communication.' },
+            { emoji: '🧸', desc: 'It is made of soft fabric. It is loved by children.' },
+            { emoji: '☕', desc: 'It is made of ceramic. It is used for drinking hot drinks.' },
+            { emoji: '🚗', desc: 'It is made of metal and plastic. It is used for transportation.' },
+            { emoji: '💡', desc: 'It is made of glass and metal. It is used for lighting.' }
+        ];
+
+        function renderFlashcards() {
+            const grid = document.getElementById('flashcard-grid');
+            grid.innerHTML = '';
+            flashcardData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'flashcard';
+                card.innerHTML = `
+                            <span class="emoji">${item.emoji}</span>
+                            <span class="hint">👆 Click to reveal</span>
+                            <span class="passive-desc">${item.desc}</span>
+                        `;
+                card.onclick = function() {
+                    this.classList.toggle('revealed');
+                    if (this.classList.contains('revealed')) {
+                        addXP(1);
+                    }
+                };
+                grid.appendChild(card);
+            });
+        }
+
+        function resetFlashcards() {
+            document.querySelectorAll('.flashcard').forEach(c => c.classList.remove('revealed'));
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 8. 30+ OBJECTS LIST
+        // ════════════════════════════════════════════════════════════════
+        const objectList = [
+            'T-shirt', 'Plastic bottle', 'Cardboard box', 'Shopping bag', 'Sneakers',
+            'Smartphone', 'Teddy bear', 'Coffee mug', 'Car', 'Light bulb',
+            'Book', 'Chair', 'Watch', 'Laptop', 'Backpack',
+            'Sunglasses', 'Water bottle', 'Jeans', 'Jacket', 'Table',
+            'Lamp', 'Mirror', 'Clock', 'Painting', 'Guitar',
+            'Sofa', 'Computer', 'Glasses', 'Keys', 'Wallet',
+            'Umbrella', 'Hat', 'Shoes', 'Bag', 'Ring',
+            'Necklace'
+        ];
+
+        function renderObjectList() {
+            const grid = document.getElementById('object-list-grid');
+            grid.innerHTML = '';
+            objectList.forEach(obj => {
+                const el = document.createElement('div');
+                el.className = 'obj-item';
+                el.textContent = obj;
+                grid.appendChild(el);
+            });
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 9. GROUP DESCRIPTIONS CHECK
+        // ════════════════════════════════════════════════════════════════
+        function checkGroupDescriptions() {
+            const text = document.getElementById('group-descriptions').value.trim();
+            const fb = document.getElementById('group-fb');
+            const passiveCount = (text.match(/\b(is|are|am)\s+\w+ed\b/gi) || []).length +
+                (text.match(/\b(is|are|am)\s+(made|grown|cut|sewn|woven|transported|recycled|packed|used|sold|found|given|prepared|cleaned|heated|sent|collected|shredded|pressed|dried|turned|melted)\b/gi) ||
+                    []).length;
+            if (text.length > 30 && passiveCount >= 2) {
+                fb.textContent = `✅ Great descriptions! You used the passive ${passiveCount} times. +5 XP`;
+                fb.style.color = 'var(--success)';
+                addXP(5);
+            } else if (text.length > 10) {
+                fb.textContent = `⚠️ Good start! Try to use more passive sentences.`;
+                fb.style.color = 'var(--accent)';
+            } else {
+                fb.textContent = '⚠️ Write at least 3 sentences describing your object.';
+                fb.style.color = 'var(--error)';
+            }
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 10. GRAMMAR – PRACTICE 1: IDENTIFY (12)
+        // ════════════════════════════════════════════════════════════════
+        function checkIdentify() {
+            const answers = ['passive', 'active', 'passive', 'active', 'passive', 'active', 'passive', 'passive', 'active',
+                'passive', 'active', 'passive'
+            ];
+            let score = 0;
+            for (let i = 1; i <= 12; i++) {
+                if (document.getElementById('p' + i).value === answers[i - 1]) score++;
+            }
+            const fb = document.getElementById('identify-fb');
+            if (score === 12) {
+                fb.textContent = '🎉 Perfect! 12/12! +10 XP';
+                fb.style.color = 'var(--success)';
+                addXP(10);
+            } else {
+                fb.textContent = `⚠️ You got ${score}/12. Review the examples.`;
+                fb.style.color = 'var(--error)';
+            }
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 11. GRAMMAR – PRACTICE 2: COMPLETE (15)
+        // ════════════════════════════════════════════════════════════════
+        function checkComplete() {
+            const answers = ['is made', 'is grown', 'is cut', 'are sewn', 'are transported', 'are recycled', 'is made',
+                'is melted', 'is turned', 'are printed', 'is heated', 'are sent', 'is prepared', 'are packed', 'are cleaned'
+            ];
+            let score = 0;
+            for (let i = 1; i <= 15; i++) {
+                const val = document.getElementById('g' + i).value.trim().toLowerCase();
+                if (val === answers[i - 1]) score++;
+            }
+            const fb = document.getElementById('complete-fb');
+            if (score === 15) {
+                fb.textContent = '🎉 Perfect! 15/15! +15 XP';
+                fb.style.color = 'var(--success)';
+                addXP(15);
+            } else {
+                fb.textContent = `⚠️ You got ${score}/15. Check your forms.`;
+                fb.style.color = 'var(--error)';
+            }
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 12. GRAMMAR – PRACTICE 3: ACTIVE TO PASSIVE (12)
+        // ════════════════════════════════════════════════════════════════
+        function checkActivePassive() {
+            const keywords = [
+                ['cotton', 'grown', 'warm', 'countries'],
+                ['t-shirts', 'produced', 'factories'],
+                ['shirts', 'transported', 'truck'],
+                ['fabric', 'sewn', 'together'],
+                ['plastic', 'bottles', 'recycled'],
+                ['t-shirts', 'sold', 'online'],
+                ['fabric', 'dyed', 'natural', 'colors'],
+                ['homework', 'given', 'every', 'day'],
+                ['machine', 'used', 'cutting'],
+                ['factory', 'cleaned'],
+                ['english', 'spoken', 'classroom'],
+                ['food', 'prepared', 'chef']
+            ];
+
+            let score = 0;
+            for (let i = 1; i <= 12; i++) {
+                const val = document.getElementById('a' + i).value.trim().toLowerCase();
+                const kw = keywords[i - 1];
+                let matches = 0;
+                kw.forEach(word => {
+                    if (val.includes(word)) matches++;
+                });
+                if (matches >= Math.ceil(kw.length * 0.7) && val.length > 0) score++;
+            }
+
+            const fb = document.getElementById('active-fb');
+            if (score === 12) {
+                fb.textContent = '🎉 Perfect! 12/12! +15 XP';
+                fb.style.color = 'var(--success)';
+                addXP(15);
+            } else if (score >= 9) {
+                fb.textContent = `✅ You got ${score}/12. Very good! +10 XP`;
+                fb.style.color = 'var(--accent)';
+                addXP(10);
+            } else {
+                fb.textContent = `⚠️ You got ${score}/12. Review the passive structure.`;
+                fb.style.color = 'var(--error)';
+            }
+
+            for (let i = 1; i <= 12; i++) {
+                const input = document.getElementById('a' + i);
+                const val = input.value.trim().toLowerCase();
+                const kw = keywords[i - 1];
+                let matches = 0;
+                kw.forEach(word => {
+                    if (val.includes(word)) matches++;
+                });
+                if (matches >= Math.ceil(kw.length * 0.7) && val.length > 0) {
+                    input.classList.remove('wrong');
+                    input.classList.add('correct');
+                } else if (val.length > 0) {
+                    input.classList.remove('correct');
+                    input.classList.add('wrong');
+                }
+            }
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 13. GRAMMAR – PRACTICE 4: DIALOGUE (12)
+        // ════════════════════════════════════════════════════════════════
+        function checkDialogue() {
+            const answers = ['is', 'made', 'are', 'recycled', 'are', 'collected', 'are', 'cleaned', 'are', 'melted', 'are',
+                'turned', 'is', 'woven', 'is', 'cut', 'is', 'sewn', 'are', 'sold', 'are', 'sold'
+            ];
+            let score = 0;
+            for (let i = 1; i <= 12; i++) {
+                const val = document.getElementById('d' + i).value.trim().toLowerCase();
+                if (val === answers[i - 1]) score++;
+            }
+            const fb = document.getElementById('dialogue-fb');
+            if (score === 12) {
+                fb.textContent = '🎉 Perfect dialogue! 12/12! +15 XP';
+                fb.style.color = 'var(--success)';
+                addXP(15);
+            } else {
+                fb.textContent = `⚠️ You got ${score}/12. Check the passive forms.`;
+                fb.style.color = 'var(--error)';
+            }
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 14. GRAMMAR – PRACTICE 5: ERROR HUNT (15)
+        // ════════════════════════════════════════════════════════════════
+        function checkErrors() {
+            const answers = [
+                'the cotton is grown in india',
+                'the t-shirts are made in china',
+                'the fabric is cut into pieces',
+                'the bottles are recycled here',
+                'the paper is made from trees',
+                'the glass is melted and reused',
+                'the labels are printed on the boxes',
+                'the water is heated to 80 degrees',
+                'the books are sent to schools',
+                'the food is prepared in the kitchen',
+                'the shirts are packed in boxes',
+                'the machines are cleaned every day',
+                'the t-shirt is worn by people',
+                'the cotton is grown on farms',
+                'the fabric is woven together'
+            ];
+            let score = 0;
+            for (let i = 1; i <= 15; i++) {
+                const val = document.getElementById('e' + i).value.trim().toLowerCase().replace(/\s+/g, ' ');
+                if (val === answers[i - 1]) score++;
+            }
+            const fb = document.getElementById('error-fb');
+            if (score === 15) {
+                fb.textContent = '🎉 Perfect! 15/15! +20 XP';
+                fb.style.color = 'var(--success)';
+                addXP(20);
+            } else {
+                fb.textContent = `⚠️ You got ${score}/15. Check subject-verb agreement.`;
+                fb.style.color = 'var(--error)';
+            }
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 15. SPEAKING – PROCESS CHECK
+        // ════════════════════════════════════════════════════════════════
+        function checkProcess() {
+            const text = document.getElementById('process-write').value.trim();
+            const fb = document.getElementById('process-fb');
+            const passiveCount = (text.match(/\b(is|are|am)\s+\w+ed\b/gi) || []).length +
+                (text.match(/\b(is|are|am)\s+(made|grown|cut|sewn|woven|transported|recycled|packed|used|sold|collected|shredded|pressed|dried|turned|melted|heated|cleaned|prepared|sent)\b/gi) ||
+                    []).length;
+            if (text.length > 50 && passiveCount >= 4) {
+                fb.textContent = `✅ Great process! You used the passive ${passiveCount} times. +10 XP`;
+                fb.style.color = 'var(--success)';
+                addXP(10);
+            } else if (text.length > 20 && passiveCount >= 2) {
+                fb.textContent = `✅ Good start! Try to use more passive. +5 XP`;
+                fb.style.color = 'var(--accent)';
+                addXP(5);
+            } else {
+                fb.textContent = '⚠️ Write a longer process with at least 4 passive sentences.';
+                fb.style.color = 'var(--error)';
+            }
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 16. EXIT TICKET
+        // ════════════════════════════════════════════════════════════════
+        function submitExitTicket() {
+            const answer = document.getElementById('exit-answer').value.trim();
+            if (answer.length < 20) {
+                alert('Please write a thoughtful reflection (at least 20 characters)!');
+                return;
+            }
+            document.getElementById('exit-badge').style.display = 'block';
+            document.getElementById('final-xp').textContent = totalXP;
+            addXP(30);
+            document.getElementById('exit-badge').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 17. TEACHER ANSWERS TOGGLE
+        // ════════════════════════════════════════════════════════════════
+        function toggleTeacherAnswers() {
+            const el = document.getElementById('teacher-answers');
+            el.classList.toggle('show');
+            if (el.classList.contains('show')) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // 18. INIT
+        // ════════════════════════════════════════════════════════════════
+        document.addEventListener('DOMContentLoaded', function() {
+            renderFlashcards();
+            renderObjectList();
+            document.getElementById('gladiator-total').textContent = gladiatorWords.length;
+        });
+    </script>
+
+</body>
+</html>
